@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans: var(--font-inter), "Segoe UI", sans-serif;
+  --font-script: var(--font-great-vibes), cursive;
+  --color-mocha: #3b241c;
+  --color-cream: #f8f1e7;
+  --color-rose: #c98f8f;
+  --color-butter: #f3d9a5;
+  --color-beige: #e8d8c8;
+  --color-accent: #c94c4c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f8f1e7;
+  color: #3b241c;
+  overflow-x: clip;
+}
+
+.grain {
+  background-image: radial-gradient(rgba(59, 36, 28, 0.16) 0.55px, transparent 0.55px);
+  background-size: 3px 3px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 88%);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 80;
+  transform: translateY(-120%);
+  border-radius: 999px;
+  background: #3b241c;
+  color: #f8f1e7;
+  padding: 0.7rem 1rem;
+}
+
+.skip-link:focus {
+  transform: translateY(0.8rem);
+}
+
+:focus-visible {
+  outline: 2px solid #c94c4c;
+  outline-offset: 3px;
+}
+
+.skill-track {
+  animation-name: rail;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.skill-rail:hover .skill-track,
+.skill-rail:focus-within .skill-track {
+  animation-play-state: paused;
+}
+
+@keyframes rail {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.desk-rule {
+  width: 2.5rem;
+  transition: width 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desk-note .desk-body {
+    max-height: 0;
+    margin-top: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.35s ease, margin-top 0.35s ease;
+  }
+
+  .desk-note:hover .desk-body,
+  .desk-note:focus-within .desk-body {
+    max-height: 32rem;
+    margin-top: 1rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  .desk-note:hover .desk-rule,
+  .desk-note:focus-within .desk-rule {
+    width: min(100%, 18rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .skill-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .skill-track [aria-hidden="true"] {
+    display: none;
+  }
+
+  .desk-note .desk-body {
+    max-height: none;
+    margin-top: 1rem;
+    opacity: 1;
+    transform: none;
+  }
+}
