@@ -1,4 +1,4 @@
-import type { Skill } from "@/lib/types";
+import type { GalleryItem, Media, Skill } from "@/lib/types";
 
 const employmentLabels: Record<string, string> = {
   FULL_TIME: "Full-time",
@@ -12,7 +12,7 @@ export function siteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 }
 
-export function isHttpUrl(value?: string | null) {
+export function isHttpUrl(value?: string | null): value is string {
   if (!value) return false;
   try {
     const url = new URL(value);
@@ -24,6 +24,14 @@ export function isHttpUrl(value?: string | null) {
 
 export function mediaUrl(publicUrl?: string | null) {
   return isHttpUrl(publicUrl) ? publicUrl : null;
+}
+
+export function coverFrom(record?: { coverImage?: Media | null; gallery?: GalleryItem[] } | null) {
+  const direct = mediaUrl(record?.coverImage?.publicUrl);
+  if (direct) return direct;
+  const marked = record?.gallery?.find((item) => item.isCover)?.media?.publicUrl;
+  const first = record?.gallery?.[0]?.media?.publicUrl;
+  return mediaUrl(marked) || mediaUrl(first);
 }
 
 export function socialUrl(links: Record<string, string | null> | null | undefined, key: string) {

@@ -6,8 +6,8 @@ export function ExperienceSection({ experience }: { experience: Experience[] }) 
   return (
     <section id="experience" className="scroll-mt-24 px-5 py-12 sm:px-8 lg:px-12 lg:py-14">
       <div className="mx-auto max-w-[1440px]">
-        <SectionHeading index="04" eyebrow="Experience" title="Experience">
-          A few roles where I&apos;ve learned by building, testing, and fixing things in the real world.
+        <SectionHeading index="02" eyebrow="Experience" title="Experiences">
+          Roles
         </SectionHeading>
         {experience.length ? (
           <ol className="timeline relative space-y-3 border-l border-[#C98F8F]/80 pl-6 sm:pl-8">

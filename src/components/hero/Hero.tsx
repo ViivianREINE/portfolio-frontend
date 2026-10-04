@@ -13,8 +13,8 @@ export function Hero({ about }: { about: About | null }) {
   const { springX, springY, spotX, spotY, gazeSpring, mode } = useCursorPosition(boundsRef);
   const portraitX = useTransform(springX, (value) => value * 16);
   const portraitY = useTransform(springY, (value) => value * 10);
-  const tiltX = useTransform(springY, (value) => value * -6);
-  const tiltY = useTransform(springX, (value) => value * 8);
+  const tiltX = useTransform(springY, (value) => value * -2);
+  const tiltY = useTransform(springX, (value) => value * 3);
   const portraitScale = useTransform([springX, springY], ([x, y]) => 1 + (Math.abs(Number(x)) + Math.abs(Number(y))) * 0.015);
   const depthX = useTransform(springX, (value) => value * -22);
   const depthY = useTransform(springY, (value) => value * -14);
@@ -31,7 +31,7 @@ export function Hero({ about }: { about: About | null }) {
       {mode === "track" ? (
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute z-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full"
+          className="pointer-events-none absolute z-0 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{
             left: spotX,
             top: spotY,
@@ -50,7 +50,7 @@ export function Hero({ about }: { about: About | null }) {
           <p className="mt-4 text-sm uppercase tracking-[0.22em] text-[#3B241C]/60">{location}</p>
           <p className="mt-3 max-w-md text-sm leading-6 text-[#3B241C]/70">AI / ML · Data · Analytics · Automation · Research · Creative Technology</p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <a href="#work" className="inline-flex min-h-11 items-center rounded-full bg-[#3B241C] px-6 text-[11px] uppercase tracking-[0.2em] text-[#F8F1E7]">
+            <a href="#projects" className="inline-flex min-h-11 items-center rounded-full bg-[#3B241C] px-6 text-[11px] uppercase tracking-[0.2em] text-[#F8F1E7]">
               View the work
             </a>
             <a href="#contact" className="inline-flex min-h-11 items-center rounded-full border border-[#3B241C]/20 px-6 text-[11px] uppercase tracking-[0.2em] text-[#3B241C]">

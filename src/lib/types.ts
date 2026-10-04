@@ -73,6 +73,35 @@ export type Skill = {
   active?: boolean;
 };
 
+export type GalleryItem = {
+  id: string;
+  mediaId?: string;
+  isCover?: boolean;
+  displayOrder?: number;
+  media?: Media | null;
+};
+
+export type Achievement = {
+  id: string;
+  title: string;
+  organizer?: string | null;
+  date?: string | null;
+  location?: string | null;
+  result?: string | null;
+  placement?: string | null;
+  projectName?: string | null;
+  description?: string | null;
+  technologies?: string[];
+  githubUrl?: string | null;
+  liveUrl?: string | null;
+  linkedinUrl?: string | null;
+  featured?: boolean;
+  displayOrder?: number;
+  active?: boolean;
+  coverImage?: Media | null;
+  gallery?: GalleryItem[];
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -85,6 +114,7 @@ export type Project = {
   githubUrl?: string | null;
   stack?: string[];
   coverImage?: Media | null;
+  gallery?: GalleryItem[];
   displayOrder?: number;
   createdAt?: string;
   updatedAt?: string;
@@ -144,5 +174,6 @@ export type HomeContent = {
   experience: Experience[];
   testimonials: Testimonial[];
   services: Service[];
+  hackathons: Achievement[];
   failed: string[];
 };

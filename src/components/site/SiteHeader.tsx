@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@/components/site/Logo";
 
 const links = [
-  { href: "/#work", id: "work", label: "Work" },
   { href: "/#about", id: "about", label: "About" },
-  { href: "/#experience", id: "experience", label: "Experience" },
+  { href: "/#experience", id: "experience", label: "Experiences" },
+  { href: "/#projects", id: "projects", label: "Projects" },
+  { href: "/#achievements", id: "achievements", label: "Achievements" },
+  { href: "/#skills", id: "skills", label: "Skills" },
   { href: "/#writing", id: "writing", label: "Writing" },
   { href: "/#contact", id: "contact", label: "Contact" },
 ];
@@ -63,7 +65,7 @@ export function SiteHeader() {
         <div className="rounded-full bg-[#F8F1E7]/85 px-3 py-1.5 backdrop-blur-md">
           <Logo />
         </div>
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-4 xl:gap-6 lg:flex" aria-label="Primary">
           {links.map((link) => (
             <Link
               key={link.id}
@@ -103,7 +105,7 @@ export function SiteHeader() {
                 key={link.id}
                 href={link.href}
                 onClick={() => setOpenPath(null)}
-                className="border-b border-[#3B241C]/10 py-4 font-display text-4xl text-[#3B241C]"
+                className="border-b border-[#3B241C]/10 py-4 font-display text-3xl text-[#3B241C] sm:text-4xl"
               >
                 <span className="mr-4 font-sans text-xs tracking-[0.2em] text-[#C98F8F]">0{index + 1}</span>
                 {link.label}

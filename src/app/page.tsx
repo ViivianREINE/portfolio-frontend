@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AboutSection } from "@/components/about/AboutSection";
-import { AchievementsSection } from "@/components/achievements/AchievementsSection";
+import { HackathonSection } from "@/components/achievements/HackathonSection";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { ExperienceSection } from "@/components/experience/ExperienceSection";
 import { Hero } from "@/components/hero/Hero";
@@ -39,24 +39,24 @@ export default async function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <Hero about={about} />
       {content.failed.length ? (
-        <p className="mx-auto mt-24 max-w-[1440px] px-5 text-sm text-[#C94C4C] sm:px-8">
+        <p className="mx-auto max-w-[1440px] px-5 text-sm text-[#C94C4C] sm:px-8" role="status">
           Some sections could not be reached: {content.failed.join(", ")}.
         </p>
       ) : null}
-      <Hero about={about} />
-      <SelectedWork projects={featured} more={more} />
       <AboutSection about={about} />
       <ExperienceSection experience={content.experience} />
-      <AchievementsSection achievements={about?.profileData?.achievements || []} />
+      <SelectedWork projects={featured} more={more} />
+      <HackathonSection hackathons={content.hackathons} />
       <PracticeSection
         skills={content.skills}
         services={content.services}
         testimonials={content.testimonials}
         volunteering={about?.profileData?.volunteering || []}
       />
-      <WritingSection blogs={content.blogs} />
       <NotesSection />
+      <WritingSection blogs={content.blogs} />
       <ContactSection about={about} />
     </>
   );

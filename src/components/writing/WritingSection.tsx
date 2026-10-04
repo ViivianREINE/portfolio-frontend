@@ -5,14 +5,13 @@ import { formatLongDate, mediaUrl } from "@/lib/format";
 
 export function WritingSection({ blogs }: { blogs: Blog[] }) {
   const published = blogs.filter((blog) => blog.published !== false);
+  if (!published.length) return null;
 
   return (
-    <section id="writing" className="scroll-mt-24 px-5 py-12 sm:px-8 lg:px-12 lg:py-14">
+    <section className="scroll-mt-24 px-5 pb-12 sm:px-8 lg:px-12 lg:pb-14">
       <div className="mx-auto max-w-[1440px]">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">Writing</p>
-        <h2 className="mt-3 font-display text-4xl text-[#3B241C] sm:text-5xl">Writing</h2>
-        {published.length ? (
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <h2 className="font-display text-3xl text-[#3B241C] sm:text-4xl">Essays</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
             {published.map((blog) => {
               const cover = mediaUrl(blog.coverImage?.publicUrl);
               const date = formatLongDate(blog.publishedAt || blog.createdAt);
@@ -35,10 +34,7 @@ export function WritingSection({ blogs }: { blogs: Blog[] }) {
                 </article>
               );
             })}
-          </div>
-        ) : (
-          <p className="mt-5 max-w-lg text-[#3B241C]/70">No essays are published yet.</p>
-        )}
+        </div>
       </div>
     </section>
   );

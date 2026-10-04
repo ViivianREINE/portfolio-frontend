@@ -2,9 +2,9 @@ import { deskFooter, deskNotes } from "@/content/notes";
 
 export function NotesSection() {
   return (
-    <section id="notes" className="scroll-mt-24 px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
+    <section id="writing" className="scroll-mt-24 px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
       <div className="mx-auto max-w-[1440px]">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">07 / Notes</p>
+        <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">06 / Writing</p>
         <h2 className="mt-3 font-display text-4xl leading-none text-[#3B241C] sm:text-5xl">Notes from the desk</h2>
         <p className="mt-3 max-w-xl font-display text-xl italic text-[#3B241C]/70 sm:text-2xl">
           small observations from building things, breaking things, and occasionally making them beautiful.

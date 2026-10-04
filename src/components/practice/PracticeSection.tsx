@@ -20,13 +20,11 @@ export function PracticeSection({
 
   if (!visible) return null;
 
-  const eyebrow = activeServices.length ? "Services" : groups.length ? "Skills" : "Alongside";
-
   return (
-    <section id="practice" className="scroll-mt-24 px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
+    <section id="skills" className="scroll-mt-24 px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
       <div className="mx-auto max-w-[1440px]">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">06 / {eyebrow}</p>
-        <h2 className="mt-3 max-w-3xl font-display text-4xl leading-[0.95] text-[#3B241C] sm:text-5xl">{eyebrow}</h2>
+        <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">05 / Skills</p>
+        <h2 className="mt-3 max-w-3xl font-display text-4xl leading-[0.95] text-[#3B241C] sm:text-5xl">Skills</h2>
 
         {activeServices.length ? (
           <div className="mt-6 grid gap-4 md:grid-cols-3">

@@ -1,5 +1,6 @@
 import type {
   About,
+  Achievement,
   ApiSuccess,
   Blog,
   Experience,
@@ -11,7 +12,7 @@ import type {
 } from "@/lib/types";
 import { publicDetail } from "@/lib/format";
 
-export const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://portfolio-backend-rift.onrender.com/api";
 
 export class ApiRequestError extends Error {
   status: number;
@@ -89,6 +90,10 @@ export async function getBlog(slug: string) {
   return body.data;
 }
 
+export function getAchievements() {
+  return readJson<Achievement[]>("/achievements");
+}
+
 export function getExperience() {
   return readJson<Experience[]>("/experience");
 }
@@ -112,7 +117,7 @@ async function settle<T>(label: string, request: Promise<T>, fallback: T, failed
 
 export async function loadHome(): Promise<HomeContent> {
   const failed: string[] = [];
-  const [about, skills, projects, blogs, experience, testimonials, services] = await Promise.all([
+  const [about, skills, projects, blogs, experience, testimonials, services, hackathons] = await Promise.all([
     settle("about", getAbout(), null, failed),
     settle("skills", getSkills(), [], failed),
     settle("projects", getProjects(), [], failed),
@@ -120,7 +125,8 @@ export async function loadHome(): Promise<HomeContent> {
     settle("experience", getExperience(), [], failed),
     settle("testimonials", getTestimonials(), [], failed),
     settle("services", getServices(), [], failed),
+    settle("hackathons", getAchievements(), [], failed),
   ]);
 
-  return { about, skills, projects, blogs, experience, testimonials, services, failed };
+  return { about, skills, projects, blogs, experience, testimonials, services, hackathons, failed };
 }

@@ -60,7 +60,7 @@ export function ContactSection({ about }: { about: About | null }) {
     <section id="contact" className="scroll-mt-24 bg-[#3B241C] px-5 py-12 text-[#F8F1E7] sm:px-8 lg:px-12 lg:py-16">
       <div className="mx-auto grid max-w-[1440px] gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">08 / Contact</p>
+          <p className="text-[11px] uppercase tracking-[0.28em] text-[#C98F8F]">07 / Contact</p>
           <h2 className="mt-3 font-display text-4xl leading-[0.95] sm:text-6xl">Contact</h2>
           <p className="mt-4 max-w-sm text-sm leading-6 text-[#F8F1E7]/75">Write with your name, email, LinkedIn, and phone. I read every note myself.</p>
           <ul className="mt-6 space-y-3 text-sm">

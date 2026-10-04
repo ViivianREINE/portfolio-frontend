@@ -36,13 +36,13 @@ export function CursorField() {
   if (!visible) return null;
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[70] hidden md:block">
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-[70] hidden [@media(hover:hover)_and_(pointer:fine)]:block">
       <motion.span
-        className="absolute h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C94C4C]/50"
+        className="absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C94C4C]/45"
         style={{ left: ringX, top: ringY }}
       />
       <motion.span
-        className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C94C4C]"
+        className="absolute h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C94C4C]"
         style={{ left: dotX, top: dotY }}
       />
     </div>

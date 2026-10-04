@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GalleryView } from "@/components/media/GalleryView";
 import { Prose } from "@/components/site/Prose";
 import { getProject, getProjects } from "@/lib/api";
-import { framingNote, isHttpUrl, mediaUrl, siteUrl } from "@/lib/format";
+import { coverFrom, framingNote, isHttpUrl, mediaUrl, siteUrl } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!project) return { title: "Project not found" };
 
   const description = project.shortDescription || project.description || project.title;
-  const image = mediaUrl(project.coverImage?.publicUrl);
+  const image = coverFrom(project);
   return {
     title: project.title,
     description,
@@ -36,7 +36,15 @@ export default async function ProjectPage({ params }: PageProps) {
   const project = await getProject(slug).catch(() => null);
   if (!project) notFound();
 
-  const cover = mediaUrl(project.coverImage?.publicUrl);
+  const cover = coverFrom(project);
+  const gallery = (project.gallery || [])
+    .map((item) => ({ id: item.id, url: mediaUrl(item.media?.publicUrl), alt: item.media?.originalName || project.title }))
+    .filter((item): item is { id: string; url: string; alt: string } => Boolean(item.url));
+  const slides = [...gallery];
+  if (cover && !slides.some((slide) => slide.url === cover)) {
+    slides.unshift({ id: "cover", url: cover, alt: `${project.title} cover` });
+  }
+  const lead = project.shortDescription && project.description?.includes(project.shortDescription) ? null : project.shortDescription;
   const github = isHttpUrl(project.githubUrl) ? project.githubUrl : null;
   const live = isHttpUrl(project.projectUrl) ? project.projectUrl : null;
   const story = [project.description, project.shortDescription].filter(Boolean).join("\n\n");
@@ -46,12 +54,12 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <article className="px-5 pb-20 pt-28 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-[1100px]">
-        <Link href="/#work" className="text-[11px] uppercase tracking-[0.2em] text-[#C98F8F]">
+        <Link href="/#projects" className="text-[11px] uppercase tracking-[0.2em] text-[#C98F8F]">
           Back to work
         </Link>
         <p className="mt-8 text-[11px] uppercase tracking-[0.22em] text-[#C94C4C]">{project.featured ? "Featured project" : "Project"}</p>
         <h1 className="mt-4 font-display text-5xl leading-[0.95] text-[#3B241C] sm:text-7xl">{project.title}</h1>
-        {project.shortDescription ? <p className="mt-6 max-w-2xl text-lg leading-8 text-[#3B241C]/75">{project.shortDescription}</p> : null}
+        {lead ? <p className="mt-6 max-w-2xl text-lg leading-8 text-[#3B241C]/75">{lead}</p> : null}
         {project.stack?.length ? (
           <ul className="mt-6 flex flex-wrap gap-2">
             {project.stack.map((item) => (
@@ -73,11 +81,9 @@ export default async function ProjectPage({ params }: PageProps) {
             </a>
           ) : null}
         </div>
-        {cover ? (
-          <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-[32px]">
-            <Image src={cover} alt={`${project.title} cover`} fill priority sizes="(max-width: 1100px) 92vw, 1100px" className="object-cover" />
-          </div>
-        ) : null}
+        <div className="mt-8">
+          <GalleryView slides={slides} label={project.title} />
+        </div>
         <div className="mt-10 max-w-3xl">
           <h2 className="font-display text-3xl text-[#3B241C]">Description</h2>
           <div className="mt-5">
