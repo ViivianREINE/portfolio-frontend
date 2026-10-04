@@ -11,12 +11,33 @@ import { SelectedWork } from "@/components/work/SelectedWork";
 import { loadHome } from "@/lib/api";
 import { siteUrl } from "@/lib/format";
 import { profiles } from "@/lib/socials";
+import type { Achievement, About } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
+
+function storedAchievements(about: About | null, hackathons: Achievement[]) {
+  const known = new Set(hackathons.map((item) => item.title.trim().toLowerCase()));
+  const records = about?.profileData?.achievements || [];
+  return records.flatMap((item, index) => {
+    const title = item.title?.trim();
+    if (!title || known.has(title.toLowerCase())) return [];
+    return [
+      {
+        id: `profile-achievement-${index}`,
+        title,
+        description: item.detail || null,
+        projectName: item.project || null,
+        displayOrder: index - 100,
+        technologies: [],
+        gallery: [],
+      } satisfies Achievement,
+    ];
+  });
+}
 
 export default async function HomePage() {
   const content = await loadHome();
@@ -48,7 +69,7 @@ export default async function HomePage() {
       <AboutSection about={about} />
       <ExperienceSection experience={content.experience} />
       <SelectedWork projects={featured} more={more} />
-      <HackathonSection hackathons={content.hackathons} />
+      <HackathonSection hackathons={[...storedAchievements(about, content.hackathons), ...content.hackathons]} />
       <PracticeSection
         skills={content.skills}
         services={content.services}
